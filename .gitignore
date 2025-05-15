@@ -1,0 +1,24 @@
+# Wirtualne środowisko
+.venv/
+
+# Wykresy i wyniki
+/plots/
+
+# Dane
+*.csv
+*.tsv
+*.txt
+
+# Pliki tymczasowe
+.DS_Store
+*.log
+*.tmp
+
+# Pamięć podręczna Python'a
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Punkty kontrolne Jupyter Notebook
+.ipynb_checkpoints/
