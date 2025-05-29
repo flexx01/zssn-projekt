@@ -1,0 +1,112 @@
+﻿1. Temat projektu, skład zespołu.
+
+
+Temat projektu: Binarna klasyfikacja danych tekstowych z zastosowaniem sztucznych sieci neuronowych.
+Skład zespołu: ….
+
+
+2. Opis danych użytych w analizie. Opis atrybutów danych, przykładowe rekordy, wykresy.
+
+
+Wybrany zbiór danych do analizy: SMS Spam Collection (Kolekcja spamu SMS).
+Odnośnik do zbioru: https://archive.ics.uci.edu/dataset/228/sms+spam+collection
+Źródło zbioru: Contributions to the study of SMS spam filtering: new collection and results.
+https://dl.acm.org/doi/10.1145/2034691.2034742
+By Tiago A. Almeida, J. M. G. Hidalgo, A. Yamakami. 2011
+Published in ACM Symposium on Document Engineering
+
+
+Opis wybranego zbioru danych:
+        SMS Spam Collection jest publicznie dostępnym zbiorem danych tekstowych, który został opracowany w celu wsparcia badań nad automatyczną klasyfikacją wiadomości SMS jako wiadomości niepożądane (ang. spam) lub jako wiadomości prawidłowe (ang. ham). Zbiór ten został opublikowany na platformie UCI Machine Learning Repository i jest wykorzystywany w zadaniach z zakresu przetwarzania języka naturalnego (NLP) oraz binarnej klasyfikacji tekstu, jak jest to w przypadku naszego zadania projektowego.
+
+
+Struktura zbioru danych: 
+Wybrany przez nas zbiór danych zawiera w sobie 5574 wiadomości SMS, z których każda jest oznaczona jako wiadomość pożądana (ham), czyli wiadomość niebędąca spamem lub wiadomość niepożądana (spam), czyli wiadomość uznana za spam.
+Dane ze zbioru zapisane są w pliku o formacie tekstowym, gdzie każdy wiersz składa się z etykiety wiadomości (ham lub spam) oraz treści wiadomości SMS.
+
+
+Przykładowe rekordy danych:
+spam    FREE entry into our £250 weekly competition just text the word WIN to 80086 NOW. 18 T&C www.txttowin.co.uk
+ham Alright, I'll head out in a few minutes, text me where to meet you
+
+
+Opis atrybutów danych:
+* ham (wiadomości pożądane): 4827 rekordów
+* spam (wiadomości niepożądane): 747 rekordów
+Zbiór danych jest niezrównoważony, co powoduje dodatkowe wyzwanie przy jego analizie i modelowaniu. Przykładowo może to wymagać od nas odpowiedniego zastosowania wag klas lub innych technik balansujących dane.
+
+
+
+
+
+
+Możliwe zastosowania zbioru: Zbiór ten nadaje się do nauki i testowania algorytmów uczenia maszynowego, w tym sztucznych sieci neuronowych, w kontekście takich zagadnień jak filtry antyspamowe, analizy sentymentu, wstępne eksploracje danych tekstowych oraz jak w naszym przypadku binarne klasyfikacje tekstu.
+
+
+Wykresy danych:
+…
+
+
+3. Opis wybranego modelu sztucznej sieci neuronowej. Opis algorytmów wykorzystanych w projekcie i ich parametrów. Opis użytych bibliotek.
+
+
+4. Najważniejsze fragmenty kodu wraz z opisem.
+
+
+5. Wyniki uczenia i testowania nauczonego modelu wraz z opisem, wykresami, tabelami.
+
+
+6. Podsumowanie.
+
+
+7. Literatura.
+
+
+Wybór technologii: 
+https://en.wikipedia.org/wiki/Keras 
+https://en.wikipedia.org/wiki/Comparison_of_deep_learning_software 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Etapy realizacji projektu
+1. Zapoznanie się z wymaganiami i tematami projektu. Wybór tematu.
+2. Przegląd dostępnej literatury, wybór technologii.
+3. Wybór zbioru danych do analizy (30.03.25).
+4. Wstępne przetworzenie danych. Podział danych na dane uczące i testowe. Analiza i wizualizacja danych.
+5. Implementacja wybranego modelu sztucznej sieci neuronowej.
+6. Wybór algorytmów uczenia. Określenie najważniejszych parametrów modelu. Implementacja procesu uczenia (18.05.25).
