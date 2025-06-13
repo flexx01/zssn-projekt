@@ -23,8 +23,8 @@ class ProcesorDanych:
         Inicjalizacja procesora danych.
         
         Parametry:
-        - max_features: maksymalna liczba słów w słowniku
-        - max_len: maksymalna długość sekwencji
+        - max_features: maksymalna liczba slow w slowniku
+        - max_len: maksymalna dlugosc sekwencji
         """
         self.max_features = max_features
         self.max_len = max_len
@@ -37,9 +37,9 @@ class ProcesorDanych:
     
     def przetworz_tekst(self, tekst):
         """
-        Przetwarza tekst wiadomości:
-        - zamiana na małe litery
-        - usunięcie znaków specjalnych
+        Przetwarza tekst wiadomosci:
+        - zamiana na male litery
+        - usuniecie znakow specjalnych
         - tokenizacja
         """
         tekst = tekst.lower()
@@ -50,18 +50,18 @@ class ProcesorDanych:
     def przygotuj_dane(self, dane, test_size=0.2, random_state=42):
         """
         Przygotowuje dane do treningu:
-        - przetwarza wiadomości
+        - przetwarza wiadomosci
         - koduje etykiety
-        - dzieli na zbiór treningowy i testowy
-        - tokenizuje i dopełnia sekwencje
+        - dzieli na zbior treningowy i testowy
+        - tokenizuje i dopelnia sekwencje
         """
-        print("Przetwarzanie wiadomości...")
+        print("Przetwarzanie wiadomosci...")
         dane['processed_message'] = dane['message'].apply(self.przetworz_tekst)
         
         print("Kodowanie etykiet...")
         dane['encoded_label'] = self.label_encoder.fit_transform(dane['label'])
         
-        print("Podział danych na zbiór treningowy i testowy...")
+        print("Podzial danych na zbior treningowy i testowy...")
         X_train, X_test, y_train, y_test = train_test_split(
             dane['processed_message'],
             dane['encoded_label'],
@@ -75,14 +75,14 @@ class ProcesorDanych:
         X_train_seq = self.tokenizer.texts_to_sequences(X_train)
         X_test_seq = self.tokenizer.texts_to_sequences(X_test)
         
-        print("Dopełnianie sekwencji...")
+        print("Dopelnianie sekwencji...")
         X_train_pad = pad_sequences(X_train_seq, maxlen=self.max_len)
         X_test_pad = pad_sequences(X_test_seq, maxlen=self.max_len)
         
         return X_train_pad, X_test_pad, y_train, y_test
     
     def pobierz_rozmiar_slownika(self):
-        """Zwraca rozmiar słownika."""
+        """Zwraca rozmiar slownika."""
         return min(len(self.tokenizer.word_index) + 1, self.max_features)
 
 # ================ MODEL SIECI NEURONOWEJ ================
@@ -93,8 +93,8 @@ class KlasyfikatorSMS:
         Inicjalizacja klasyfikatora.
         
         Parametry:
-        - vocab_size: rozmiar słownika
-        - max_len: maksymalna długość sekwencji
+        - vocab_size: rozmiar slownika
+        - max_len: maksymalna dlugosc sekwencji
         - embedding_dim: wymiar embeddingu
         """
         self.vocab_size = vocab_size
@@ -188,13 +188,13 @@ def rysuj_historie_treningu(historia):
     
     plt.figure(figsize=(10, 5))
     
-    # Wykres dokładności
+    # Wykres dokladnosci
     plt.subplot(1, 2, 1)
-    plt.plot(historia.history['accuracy'], label='Dokładność treningu')
-    plt.plot(historia.history['val_accuracy'], label='Dokładność walidacji')
-    plt.title('Dokładność modelu')
+    plt.plot(historia.history['accuracy'], label='Dokladnosc treningu')
+    plt.plot(historia.history['val_accuracy'], label='Dokladnosc walidacji')
+    plt.title('Dokladnosc modelu')
     plt.xlabel('Epoka')
-    plt.ylabel('Dokładność')
+    plt.ylabel('Dokladnosc')
     plt.legend()
     
     # Wykres funkcji straty
@@ -211,11 +211,11 @@ def rysuj_historie_treningu(historia):
     plt.close()
 
 def rysuj_macierz_pomylek(y_true, y_pred):
-    """Rysuje macierz pomyłek."""
+    """Rysuje macierz pomylek."""
     cm = confusion_matrix(y_true, y_pred)
     plt.figure(figsize=(8, 6))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title('Macierz pomyłek')
+    plt.title('Macierz pomylek')
     plt.ylabel('Prawdziwa etykieta')
     plt.xlabel('Przewidziana etykieta')
     plt.savefig('wyniki/wykresy/macierz_pomylek.png')
@@ -224,7 +224,7 @@ def rysuj_macierz_pomylek(y_true, y_pred):
 # ================ POBIERANIE DANYCH ================
 
 def pobierz_dane():
-    """Pobiera i przygotowuje zbiór danych."""
+    """Pobiera i przygotowuje zbior danych."""
     # Utworzenie katalogu na dane
     if not os.path.exists('dane'):
         os.makedirs('dane')
@@ -249,39 +249,39 @@ def pobierz_dane():
     df = pd.DataFrame(data, columns=['label', 'message'])
     df.to_csv('dane/SMSSpamCollection', sep='\t', index=False, header=False)
     
-    print("Dane zostały pobrane i przygotowane.")
-    print(f"Liczba wiadomości w zbiorze: {len(df)}")
+    print("Dane zostaly pobrane i przygotowane.")
+    print(f"Liczba wiadomosci w zbiorze: {len(df)}")
     print(f"Liczba spamu: {len(df[df['label'] == 'spam'])}")
-    print(f"Liczba wiadomości prawidłowych: {len(df[df['label'] == 'ham'])}")
+    print(f"Liczba wiadomosci prawidlowych: {len(df[df['label'] == 'ham'])}")
 
-# ================ GŁÓWNA FUNKCJA ================
+# ================ GLOWNA FUNKCJA ================
 
 def analizuj_dane(dane):
     """Tworzy wykresy analizy danych."""
     os.makedirs('wyniki/wykresy', exist_ok=True)
     
-    # 1. Rozkład klas (spam vs ham)
+    # 1. Rozklad klas (spam vs ham)
     plt.figure(figsize=(15, 5))
     plt.subplot(1, 3, 1)
     rozklad = dane['label'].value_counts()
     plt.pie(rozklad, labels=rozklad.index, autopct='%1.1f%%')
-    plt.title('Rozkład klas (spam vs ham)')
+    plt.title('Rozklad klas (spam vs ham)')
     
-    # 2. Długość wiadomości dla każdej klasy
+    # 2. Dlugosc wiadomosci dla kazdej klasy
     plt.subplot(1, 3, 2)
     dane['dlugosc'] = dane['message'].str.len()
     sns.boxplot(x='label', y='dlugosc', data=dane)
-    plt.title('Rozkład długości wiadomości')
+    plt.title('Rozklad dlugosci wiadomosci')
     plt.xlabel('Klasa')
-    plt.ylabel('Długość wiadomości')
+    plt.ylabel('Dlugosc wiadomosci')
     
-    # 3. Histogram długości wiadomości dla każdej klasy
+    # 3. Histogram dlugosci wiadomosci dla kazdej klasy
     plt.subplot(1, 3, 3)
     sns.histplot(data=dane[dane['label']=='ham'], x='dlugosc', bins=50, label='Ham', alpha=0.5)
     sns.histplot(data=dane[dane['label']=='spam'], x='dlugosc', bins=50, label='Spam', alpha=0.5)
-    plt.title('Histogram długości wiadomości')
-    plt.xlabel('Długość wiadomości')
-    plt.ylabel('Liczba wiadomości')
+    plt.title('Histogram dlugosci wiadomosci')
+    plt.xlabel('Dlugosc wiadomosci')
+    plt.ylabel('Liczba wiadomosci')
     plt.legend()
     
     plt.tight_layout()
@@ -321,8 +321,8 @@ def rysuj_krzywe_uczenia(model, X_test, y_test):
     plt.close()
 
 def main():
-    """Główna funkcja wykonująca cały proces."""
-    # Utworzenie katalogów
+    """Glowna funkcja wykonujaca caly proces."""
+    # Utworzenie katalogow
     os.makedirs('wyniki', exist_ok=True)
     os.makedirs('wyniki/wykresy', exist_ok=True)
     
@@ -335,19 +335,19 @@ def main():
     procesor = ProcesorDanych()
     
     # Wczytanie i przygotowanie danych
-    print("\nŁadowanie i przygotowywanie danych...")
+    print("\nLadowanie i przygotowywanie danych...")
     dane = procesor.wczytaj_dane("dane/SMSSpamCollection")
-    print(f"Załadowano {len(dane)} wiadomości")
+    print(f"Zaladowano {len(dane)} wiadomosci")
     print(f"Liczba spamu: {len(dane[dane['label'] == 'spam'])}")
-    print(f"Liczba wiadomości prawidłowych: {len(dane[dane['label'] == 'ham'])}")
+    print(f"Liczba wiadomosci prawidlowych: {len(dane[dane['label'] == 'ham'])}")
     
     # Analiza danych - nowe wykresy
-    print("Generowanie wykresów analizy danych...")
+    print("Generowanie wykresow analizy danych...")
     analizuj_dane(dane)
     
     # Przygotowanie danych
     X_train, X_test, y_train, y_test = procesor.przygotuj_dane(dane)
-    print("\nDane zostały przetworzone:")
+    print("\nDane zostaly przetworzone:")
     print(f"Rozmiar zbioru treningowego: {X_train.shape}")
     print(f"Rozmiar zbioru testowego: {X_test.shape}")
     
@@ -361,8 +361,8 @@ def main():
     print("\nRozpoczynam trenowanie...")
     historia = model.trenuj(X_train, y_train, X_test, y_test, epochs=20)
     
-    # Generowanie wykresów
-    print("\nGenerowanie wykresów treningu...")
+    # Generowanie wykresow
+    print("\nGenerowanie wykresow treningu...")
     rysuj_historie_treningu(historia)
     
     # Ewaluacja modelu
@@ -370,13 +370,13 @@ def main():
     loss, accuracy, precision, recall = model.ewaluuj(X_test, y_test)
     print(f"\nWyniki na zbiorze testowym:")
     print(f"Strata: {loss:.4f}")
-    print(f"Dokładność: {accuracy:.4f}")
+    print(f"Dokladnosc: {accuracy:.4f}")
     print(f"Precyzja: {precision:.4f}")
-    print(f"Czułość: {recall:.4f}")
+    print(f"Czulosc: {recall:.4f}")
     
-    # Generowanie predykcji i macierzy pomyłek
+    # Generowanie predykcji i macierzy pomylek
     y_pred = (model.przewiduj(X_test) > 0.5).astype(int)
-    print("\nGenerowanie macierzy pomyłek...")
+    print("\nGenerowanie macierzy pomylek...")
     rysuj_macierz_pomylek(y_test, y_pred)
     
     # Generowanie krzywych uczenia
@@ -389,7 +389,7 @@ def main():
     
     # Zapisanie modelu
     model.zapisz_model('wyniki/koncowy_model.h5')
-    print("\nModel został zapisany w wyniki/koncowy_model.h5")
+    print("\nModel zostal zapisany w wyniki/koncowy_model.h5")
 
 if __name__ == "__main__":
     main() 
